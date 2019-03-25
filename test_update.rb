@@ -5,7 +5,7 @@ def reset_db_column
 
   loop do
     begin
-      client = Mysql2::Client.new(host: 'localhost', username: 'loki',
+      client = Mysql2::Client.new(host: 'db09', username: 'loki',
                                   password: 'v4WmZip2K67J6Iq7NXC', database: 'applicant_tests')
       break
     rescue Exception => e
@@ -15,7 +15,7 @@ def reset_db_column
   end
 
   begin
-    client.query("delete from sentense_pars where clean_name like '';")
+    client.query("delete from hle_dev_test_alexandr_kuzmenko where clean_name like '';")
     hash = client.query("select id, candidate_office_name, clean_name, sentense
                         from hle_dev_test_alexandr_kuzmenko;")
     hash.to_a.map! do |elem|
