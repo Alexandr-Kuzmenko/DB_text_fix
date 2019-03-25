@@ -5,8 +5,8 @@ def reset_db_column
 
   loop do
     begin
-      client = Mysql2::Client.new(host: 'db09', username: 'loki',
-                                  password: 'v4WmZip2K67J6Iq7NXC', database: 'applicant_tests')
+      client = Mysql2::Client.new(host: '', username: '',
+                                  password: '', database: '')
       break
     rescue Exception => e
       p '# EXCEPTION_SQL_CONNECTION #'
