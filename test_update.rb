@@ -16,7 +16,7 @@ def reset_db_column
 
   begin
     client.query("delete from hle_dev_test_alexandr_kuzmenko where clean_name like '';")
-    hash = client.query("select id, candidate_office_name, clean_name, sentense
+    hash = client.query("select id, candidate_office_name, clean_name, sentence
                         from hle_dev_test_alexandr_kuzmenko;")
     hash.to_a.map! do |elem|
       str = elem['candidate_office_name']
@@ -86,7 +86,7 @@ def reset_db_column
       # updating DB
       client.query("update hle_dev_test_alexandr_kuzmenko set clean_name = \"#{elem['clean_name']}\"
                                                           where id = #{elem['id']};")
-      client.query("update hle_dev_test_alexandr_kuzmenko set sentense = CONCAT(\"The candidate is running for the \",
+      client.query("update hle_dev_test_alexandr_kuzmenko set sentence = CONCAT(\"The candidate is running for the \",
                                                           clean_name, \" office.\") where id = #{elem['id']};")
     end
   rescue Exception => e
