@@ -19,23 +19,23 @@ def reset_db_column
     hash = client.query("select id, candidate_office_name, clean_name, sentence
                         from hle_dev_test_alexandr_kuzmenko;")
     hash.to_a.map! do |elem|
-      str = elem['office']
+      str = elem['candidate_office_name']
       # fixing mistake of '//' dividers
       string_mistakes_fix str, '//'
       # fixing mistake of ',/' case, no data after comma
-      string_mistakes_fix str, ',/' 
+      string_mistakes_fix str, ',/'
       # fixing unnecessary dots
       str.delete! '.'
-      # spliting string to parts to make right order
+      # splitting string to parts to make right order
       mass_part = str.split('/')
       # relocating message parts
       repaired_string = ' '
       mass_part.map.with_index do |e, i|
         # fixing extra 'spaces'
-        string_mistakes_fix e, '  ', ' ' 
+        string_mistakes_fix e, '  ', ' '
         # fixing start and end spaces
         e.strip!
-        # lower or apper case (basic settings)
+        # lower or upper case (basic settings)
         if i + 1 == mass_part.size && mass_part.size > 1
           e = e.split.map(&:capitalize).join(' ')
         else
@@ -59,7 +59,7 @@ def reset_db_column
       # fixing doubled highway & Township
       str = repaired_string.strip!
       str.gsub!(/[tT][wW][pP]|[tT][oO][wW][nN][sS][hH][iI][pP]/, 'Township')
-      string_mistakes_fix str, 'Township Township', 'Township' 
+      string_mistakes_fix str, 'Township Township', 'Township'
       str.gsub!(/[hH][wW][yY]|[hH][iI][gG][hH][wW][aA][yY]/, 'Highway')
       string_mistakes_fix str, 'Highway Highway', 'Highway'
       elem['clean_name'] = str
@@ -81,7 +81,7 @@ def string_mistakes_fix(string, event, result = '/')
     break unless string.index(event)
 
     string.gsub!(event, result)
-  end 
-end  
+  end
+end
 
 reset_db_column
